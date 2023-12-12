@@ -1,49 +1,20 @@
 #include "funciones.h"
 
-extern STATE estado;
+// Declaración de la tabla de estados definida en Main.c
+extern struct sStateTableEntry stateTable[];
 
-int get_event()
+// Función para encender la luz (a completar según sea necesario)
+void light_on(int light)
 {
-  EVENT evento;
-  char c = getchar();
-  switch(c){
-    case 'g':
-      evento = GO_COMMAND;
-      break;
-    case 's':
-      evento = STOP_COMMAND;
-      break;
-    case 't':
-      evento = TIMER_TIMEOUT;
-      break;
-    case 'q':
-      estado = EXIT;
-      break;
-    default:
-      evento = NO_EVENT;
-      break;
-  }
-
-  return evento;
 }
 
-void luz_roja()
+// Función para manejar el evento GO_COMMAND
+void handle_event_go(struct sStateTableEntry *currentState)
 {
-  printf("\033[0;31m");
-  printf("\rROJO     >");
-  printf("\033[0m");
+    // Cambia el estado actual al próximo estado cuando ocurre GO_COMMAND
+    *currentState = stateTable[currentState->nextStateOnGo];
+
+    // Enciende la luz asociada con el nuevo estado
+    light_on(currentState->light);
 }
 
-void luz_verde()
-{
-  printf("\033[0;32m");
-  printf("\rVERDE    >");
-  printf("\033[0m");
-}
-
-void luz_amarilla()
-{
-  printf("\033[0;33m");
-  printf("\rAMARILLO >");
-  printf("\033[0m");
-}
