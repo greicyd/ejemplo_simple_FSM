@@ -3,7 +3,7 @@
 // Declaración de la tabla de estados definida en Main.c
 extern struct sStateTableEntry stateTable[];
 
-// Función para encender la luz (a completar según sea necesario)
+// Función para encender la luz 
 void light_on(int light)
 {
 }
